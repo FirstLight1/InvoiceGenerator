@@ -11,7 +11,9 @@ from InvoiceGenerator.pdf import SimpleInvoice
 
 def test_invoice_generation():
     """Generate a complete PDF invoice to test the functionality"""
-    
+
+    os.environ['INVOICE_LANG'] = 'sk'
+
     print("=" * 60)
     print("Testing Invoice PDF Generation")
     print("=" * 60)
@@ -83,7 +85,7 @@ def test_invoice_generation():
         price=Decimal('1500.00'),
         description="Web Development Services",
         unit="hours",
-        tax=Decimal('21')
+        tax=Decimal('0')
     )
     invoice.add_item(item1)
     print(f"   ✓ Item 1: {item1.description} ({item1.count} {item1.unit} @ {item1.price} Kč)")
@@ -93,7 +95,7 @@ def test_invoice_generation():
         price=Decimal('5000.00'),
         description="Server Setup and Configuration",
         unit="pcs",
-        tax=Decimal('21')
+        tax=Decimal('0')
     )
     invoice.add_item(item2)
     print(f"   ✓ Item 2: {item2.description} ({item2.count} {item2.unit} @ {item2.price} Kč)")
@@ -103,7 +105,7 @@ def test_invoice_generation():
         price=Decimal('250.00'),
         description="Consulting Hours",
         unit="hours",
-        tax=Decimal('21')
+        tax=Decimal('0')
     )
     invoice.add_item(item3)
     print(f"   ✓ Item 3: {item3.description} ({item3.count} {item3.unit} @ {item3.price} Kč)")

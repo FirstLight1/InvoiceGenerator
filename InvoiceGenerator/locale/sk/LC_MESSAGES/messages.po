@@ -1,0 +1,175 @@
+# Slovak translation for InvoiceGenerator
+# Copyright (C) 2026
+# This file is distributed under the same license as the InvoiceGenerator package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.5.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-22 15:04+0100\n"
+"PO-Revision-Date: 2026-01-03 14:30+0100\n"
+"Last-Translator: \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language-Team: \n"
+
+#: api.py:47
+#, python-format
+msgid "Vat in: %s"
+msgstr "DIČ: %s"
+
+#: api.py:50
+#, python-format
+msgid "IR: %s"
+msgstr "IČO: %s"
+
+#: api.py:53
+#, python-format
+msgid "Tax ID: %s"
+msgstr "IČ DPH: %s"
+
+#: pdf.py:51
+#, python-format
+msgid "Page %(page_number)d of %(page_count)d"
+msgstr "Strana %(page_number)d z %(page_count)d"
+
+#: pdf.py:129
+#, python-format
+msgid "Invoice num.: %s"
+msgstr "Faktúra č.: %s"
+
+#: pdf.py:154
+msgid "Customer"
+msgstr "Odberateľ"
+
+#: pdf.py:174
+msgid "Provider"
+msgstr "Dodávateľ"
+
+#: pdf.py:199
+msgid "Payment information"
+msgstr "Platobné informácie"
+
+#: pdf.py:204
+msgid "Account n."
+msgstr "Č. účtu"
+
+#: pdf.py:205
+msgid "Variable symbol"
+msgstr "Variabilný symbol"
+
+#: pdf.py:209
+msgid "Specific symbol"
+msgstr "Špecifický symbol"
+
+#: pdf.py:213
+msgid "IBAN"
+msgstr "IBAN"
+
+#: pdf.py:217
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: pdf.py:221
+msgid "List of items"
+msgstr "Zoznam položiek"
+
+#: pdf.py:223
+msgid "Description"
+msgstr "Popis"
+
+#: pdf.py:227 pdf.py:240
+msgid "Units"
+msgstr "Jednotiek"
+
+#: pdf.py:229 pdf.py:242
+msgid "Price per one"
+msgstr "Cena za jednotku"
+
+#: pdf.py:231 pdf.py:244
+msgid "Total price"
+msgstr "Celková cena"
+
+#: pdf.py:233 pdf.py:335
+msgid "Tax"
+msgstr "DPH"
+
+#: pdf.py:235
+msgid "Total price with tax"
+msgstr "Celková cena s daňou"
+
+#: pdf.py:320
+msgid "Rounding"
+msgstr "Halierové vyrovnanie"
+
+#: pdf.py:331
+msgid "Total"
+msgstr "Celkom"
+
+#: pdf.py:334
+msgid "Breakdown VAT"
+msgstr "Rozpis DPH"
+
+#: pdf.py:335
+msgid "VAT rate"
+msgstr "Sadzba"
+
+#: pdf.py:335
+msgid "Without VAT"
+msgstr "Bez DPH"
+
+#: pdf.py:335
+msgid "With VAT"
+msgstr "S DPH"
+
+#: pdf.py:363
+msgid "Total with tax"
+msgstr "Celkom s DPH"
+
+#: pdf.py:385
+msgid "Creator"
+msgstr "Vytvoril"
+
+#: InvoiceGenerator/pdf.py:402
+msgid "Date of exposure taxable invoice"
+msgstr "Dátum vystavenia daňového dokladu"
+
+msgid "Taxable invoice num.: %s"
+msgstr "Daňový doklad č.: %s"
+
+#: pdf.py:404 pdf.py:465
+msgid "Due date"
+msgstr "Splatnosť"
+
+#: pdf.py:406
+msgid "Taxable date"
+msgstr "Dátum zdaniteľného plnenia"
+
+#: pdf.py:410 pdf.py:468
+msgid "Paytype"
+msgstr "Typ platby"
+
+#: pdf.py:443
+#, python-format
+msgid "Correcting document: %s"
+msgstr "Opravný daňový doklad: %s"
+
+#: pdf.py:449
+#, python-format
+msgid "Correction document for invoice: %s"
+msgstr "Opravný daňový doklad k daňovému dokladu: %s"
+
+#: pdf.py:450
+#, python-format
+msgid "Reason to correction: %s"
+msgstr "Dôvod opravy: %s"
+
+#: pdf.py:463
+msgid "Date of exposure"
+msgstr "Dátum vystavenia"
+
+msgid "Document num.: %s"
+msgstr "Doklad č.: %s"
