@@ -7,3 +7,5 @@ InvoiceGenerator.egg-info/
 build/
 dist/
 .eggs
+.venv/
+test_invoice_output.pdf

@@ -38,16 +38,17 @@ class Address(UnicodeProperty):
     :param vat_id: value added tax identification number (DIČ in czech)
     :param vat_note: VAT note
     :param ir: Taxpayer identification Number (IČO in czech)
+    :param tax_id: IC DPH
     :param logo_filename: path to the image of logo of the company
     :param country: country
     """
     _attrs = ('summary', 'address', 'city', 'zip_code', 'phone', 'email',
-              'bank_name', 'bank_account', 'bank_code', 'note', 'vat_id', 'ir',
+              'bank_name', 'bank_account', 'bank_code', 'note', 'vat_id', 'ir', 'tax_id',
               'logo_filename', 'vat_note', 'country', 'division')
 
     def __init__(
         self, summary, address='', city='', zip_code='', phone='', email='',
-        bank_name='', bank_account='', bank_code='', note='', vat_id='', ir='',
+        bank_name='', bank_account='', bank_code='', note='', vat_id='', ir='', tax_id='',
         logo_filename='', vat_note='', country='', division='',
     ):
         self.summary = summary
@@ -65,6 +66,7 @@ class Address(UnicodeProperty):
         self.vat_id = vat_id
         self.vat_note = vat_note
         self.ir = ir
+        self.tax_id = tax_id
         self.logo_filename = logo_filename
 
     def bank_account_str(self):
@@ -89,6 +91,9 @@ class Address(UnicodeProperty):
 
         if self.ir:
             address_line.append(_(u'IR: %s') % self.ir)
+
+        if self.tax_id:
+            address_line.append(_(u'Tax ID: %s') % self.tax_id)
 
         return address_line
 
