@@ -247,6 +247,8 @@ class Invoice(UnicodeProperty):
     currency_locale = "cs_CZ.UTF-8"
     #: currency identifier (e.g. "$" or "Kč")
     currency = u"Kč"
+    #: note at the bottom of the invoice
+    note = None
 
     use_tax = False
 

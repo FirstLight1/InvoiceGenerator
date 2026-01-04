@@ -149,6 +149,7 @@ class SimpleInvoice(BaseInvoice):
         self._drawQR(self.TOP - 39.4, self.LEFT + 61, 75.0)
         self._drawDates(self.TOP - 10, self.LEFT + 91)
         self._drawItems(self.TOP - 80, self.LEFT)
+        self._drawNote()
 
         # self.pdf.setFillColorRGB(0, 0, 0)
 
@@ -461,6 +462,13 @@ class SimpleInvoice(BaseInvoice):
         for item in items:
             self.pdf.drawString(item[0], top * mm, item[1])
             top += -5
+
+    def _drawNote(self):
+        if self.invoice.note:
+            self.pdf.setFont('DejaVu', 8)
+            text = self.pdf.beginText(self.LEFT * mm, 15 * mm)
+            text.textLines(self.invoice.note)
+            self.pdf.drawText(text)
 
 
 class CorrectingInvoice(SimpleInvoice):
