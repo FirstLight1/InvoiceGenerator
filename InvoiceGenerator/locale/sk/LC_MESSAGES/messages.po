@@ -83,7 +83,7 @@ msgstr "Popis"
 
 #: pdf.py:227 pdf.py:240
 msgid "Units"
-msgstr "Jednotiek"
+msgstr "Jednotka"
 
 #: pdf.py:229 pdf.py:242
 msgid "Price per one"
@@ -115,7 +115,7 @@ msgstr "Rozpis DPH"
 
 #: pdf.py:335
 msgid "VAT rate"
-msgstr "Sadzba"
+msgstr "Sadzba DPH"
 
 #: pdf.py:335
 msgid "Without VAT"
