@@ -405,51 +405,14 @@ class SimpleInvoice(BaseInvoice):
             self.pdf.setFont('DejaVu-Bold', 11)
             self.pdf.drawString((LEFT + 100) * mm, (TOP - i - 7) * mm, '%s: %s' % (_(u'Total'), currency(self.invoice.price, self.invoice.currency, self.invoice.currency_locale)))
         else:
-            self.pdf.setFont('DejaVu-Bold', 6)
-            self.pdf.drawString((LEFT + 1) * mm, (TOP - i - 2) * mm, _(u'Breakdown VAT'))
-            vat_list, tax_list, total_list, total_tax_list = [_(u'VAT rate')], [_(u'Tax')], [_(u'Without VAT')], [_(u'With VAT')]
-            for vat, items in self.invoice.generate_breakdown_vat().items():
-                vat_list.append("%s%%" % locale.format_string('%.2f', vat))
-                tax_list.append(currency(items['tax'], self.invoice.currency, self.invoice.currency_locale))
-                total_list.append(currency(items['total'], self.invoice.currency, self.invoice.currency_locale))
-                total_tax_list.append(currency(items['total_tax'], self.invoice.currency, self.invoice.currency_locale))
-
-            self.pdf.setFont('DejaVu', 6)
-            text = self.pdf.beginText((LEFT + 1) * mm, (TOP - i - 5) * mm)
-            text.textLines(vat_list)
-            self.pdf.drawText(text)
-
-            text = self.pdf.beginText((LEFT + 11) * mm, (TOP - i - 5) * mm)
-            text.textLines(tax_list)
-            self.pdf.drawText(text)
-
-            text = self.pdf.beginText((LEFT + 27) * mm, (TOP - i - 5) * mm)
-            text.textLines(total_list)
-            self.pdf.drawText(text)
-
-            text = self.pdf.beginText((LEFT + 45) * mm, (TOP - i - 5) * mm)
-            text.textLines(total_tax_list)
-            self.pdf.drawText(text)
-
-            # VAT note
-            if self.invoice.client.vat_note:
-                text = self.pdf.beginText((LEFT + 1) * mm, (TOP - i - 11) * mm)
-                text.textLines([self.invoice.client.vat_note])
-                self.pdf.drawText(text)
-
             self.pdf.setFont('DejaVu-Bold', 11)
             self.pdf.drawString(
                 (LEFT + 100) * mm,
-                (TOP - i - 14) * mm,
+                (TOP - i - 7) * mm,
                 u'%s: %s' % (_(u'Total with tax'), currency(self.invoice.price_tax, self.invoice.currency, self.invoice.currency_locale)),
             )
 
-        if items_are_with_tax:
-            self.pdf.rect(LEFT * mm, (TOP - i - 17) * mm, (LEFT + 156) * mm, (i + 19) * mm, stroke=True, fill=False)  # 140,142
-        else:
-            self.pdf.rect(LEFT * mm, (TOP - i - 11) * mm, (LEFT + 156) * mm, (i + 13) * mm, stroke=True, fill=False)  # 140,142
-
-        self._drawCreator(TOP - i - 20, self.LEFT + 98)
+        self.pdf.rect(LEFT * mm, (TOP - i - 11) * mm, (LEFT + 156) * mm, (i + 13) * mm, stroke=True, fill=False)  # 140,142
 
     def _drawCreator(self, TOP, LEFT):
         height = 20*mm
@@ -479,7 +442,7 @@ class SimpleInvoice(BaseInvoice):
             )
 
     def _drawDates(self, TOP, LEFT):
-        self.pdf.setFont('DejaVu', 10)
+        self.pdf.setFont('DejaVu', 8)
         top = TOP + 1
         items = []
         lang = get_lang()

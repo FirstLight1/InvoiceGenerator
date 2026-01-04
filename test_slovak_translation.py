@@ -85,7 +85,7 @@ def test_slovak_invoice():
         price=Decimal('1500.00'),
         description="Vývoj webových stránok",
         unit="hodín",
-        tax=Decimal('20')
+        tax=Decimal('0')
     )
     invoice.add_item(item1)
     print(f"   ✓ Položka 1: {item1.description} ({item1.count} {item1.unit} @ {item1.price} €)")
@@ -95,7 +95,7 @@ def test_slovak_invoice():
         price=Decimal('5000.00'),
         description="Konfigurácia servera",
         unit="ks",
-        tax=Decimal('20')
+        tax=Decimal('0')
     )
     invoice.add_item(item2)
     print(f"   ✓ Položka 2: {item2.description} ({item2.count} {item2.unit} @ {item2.price} €)")
@@ -105,7 +105,7 @@ def test_slovak_invoice():
         price=Decimal('250.00'),
         description="Konzultačné hodiny",
         unit="hodín",
-        tax=Decimal('20')
+        tax=Decimal('0')
     )
     invoice.add_item(item3)
     print(f"   ✓ Položka 3: {item3.description} ({item3.count} {item3.unit} @ {item3.price} €)")
