@@ -138,7 +138,7 @@ msgid "Date of exposure taxable invoice"
 msgstr "Dátum vystavenia daňového dokladu"
 
 msgid "Taxable invoice num.: %s"
-msgstr "Daňový doklad č.: %s"
+msgstr "Faktúra č.: %s"
 
 #: pdf.py:404 pdf.py:465
 msgid "Due date"

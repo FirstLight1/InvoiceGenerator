@@ -3,6 +3,10 @@
 """Test Slovak translation in invoice generation"""
 
 import os
+
+# Set Slovak language BEFORE importing InvoiceGenerator modules
+os.environ["INVOICE_LANG"] = "sk"
+
 from datetime import datetime, timedelta
 from decimal import Decimal
 
@@ -11,9 +15,6 @@ from InvoiceGenerator.pdf import SimpleInvoice
 
 def test_slovak_invoice():
     """Generate a PDF invoice with Slovak language"""
-    
-    # Set Slovak language
-    os.environ["INVOICE_LANG"] = "sk"
     
     print("=" * 60)
     print("Testing Slovak Invoice PDF Generation")
