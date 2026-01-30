@@ -369,10 +369,10 @@ class SimpleInvoice(BaseInvoice):
             if TOP - i < 30 * mm:
                 will_wrap = True
 
-            style = ParagraphStyle("normal", fontName="DejaVu", fontSize=7)
+            style = ParagraphStyle("normal", fontName="DejaVu", fontSize=7, leading=8)
             p = Paragraph(item.description, style)
             pwidth, pheight = p.wrapOn(
-                self.pdf, 70 * mm if items_are_with_tax else 90 * mm, 30 * mm
+                self.pdf, 48 * mm if items_are_with_tax else 90 * mm, 50 * mm
             )
             i_add = max(float(pheight) / mm, 4.23)
 
