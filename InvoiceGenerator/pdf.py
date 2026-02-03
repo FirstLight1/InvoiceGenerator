@@ -372,7 +372,7 @@ class SimpleInvoice(BaseInvoice):
             style = ParagraphStyle("normal", fontName="DejaVu", fontSize=7, leading=8)
             p = Paragraph(item.description, style)
             pwidth, pheight = p.wrapOn(
-                self.pdf, 48 * mm, 50 * mm
+                self.pdf, 45 * mm, 50 * mm
             )
             i_add = max(float(pheight) / mm, 4.23)
 
