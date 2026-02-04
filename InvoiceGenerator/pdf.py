@@ -300,31 +300,31 @@ class SimpleInvoice(BaseInvoice):
             self.pdf.drawString((LEFT + 1) * mm, (TOP - i) * mm, _("Popis"))
 
             # Column 2: Unit (right-aligned)
-            self.pdf.drawRightString((LEFT + 50) * mm, (TOP - i) * mm, _("Jednotka"))
+            self.pdf.drawRightString((LEFT + 60) * mm, (TOP - i) * mm, _("Jednotka"))
 
             # Column 3: Price per unit (bez DPH) - split into 2 lines
-            self.pdf.drawRightString((LEFT + 72) * mm, (TOP - i) * mm, _("Cena za"))
+            self.pdf.drawRightString((LEFT + 77) * mm, (TOP - i) * mm, _("Cena za"))
             self.pdf.drawRightString(
-                (LEFT + 72) * mm, (TOP - i - 2.5) * mm, _("jednotku")
+                (LEFT + 77) * mm, (TOP - i - 2.5) * mm, _("jednotku")
             )
             self.pdf.drawRightString(
-                (LEFT + 72) * mm, (TOP - i - 5) * mm, _("(bez DPH)")
+                (LEFT + 77) * mm, (TOP - i - 5) * mm, _("(bez DPH)")
             )
 
             # Column 4: Total price (bez DPH) - split into 2 lines
             self.pdf.drawRightString(
-                (LEFT + 96) * mm, (TOP - i) * mm, _("Celková cena")
+                (LEFT + 101) * mm, (TOP - i) * mm, _("Celková cena")
             )
             self.pdf.drawRightString(
-                (LEFT + 96) * mm, (TOP - i - 2.5) * mm, _("(bez DPH)")
+                (LEFT + 101) * mm, (TOP - i - 2.5) * mm, _("(bez DPH)")
             )
 
             # Column 5: DPH %
-            self.pdf.drawRightString((LEFT + 115) * mm, (TOP - i) * mm, _("DPH %"))
+            self.pdf.drawRightString((LEFT + 120) * mm, (TOP - i) * mm, _("DPH %"))
 
             # Column 6: DPH suma (VAT amount)
-            self.pdf.drawRightString((LEFT + 140) * mm, (TOP - i) * mm, _("DPH"))
-            self.pdf.drawRightString((LEFT + 140) * mm, (TOP - i - 2.5) * mm, _("suma"))
+            self.pdf.drawRightString((LEFT + 142) * mm, (TOP - i) * mm, _("DPH"))
+            self.pdf.drawRightString((LEFT + 142) * mm, (TOP - i - 2.5) * mm, _("suma"))
 
             # Column 7: Total with VAT - split into 2 lines
             self.pdf.drawRightString(
@@ -407,7 +407,7 @@ class SimpleInvoice(BaseInvoice):
                 # Column 2: Unit & count
                 if float(int(item.count)) == item.count:
                     self.pdf.drawRightString(
-                        (LEFT + 50) * mm,
+                        (LEFT + 57) * mm,
                         (TOP - i) * mm,
                         "%s %s"
                         % (
@@ -417,7 +417,7 @@ class SimpleInvoice(BaseInvoice):
                     )
                 else:
                     self.pdf.drawRightString(
-                        (LEFT + 50) * mm,
+                        (LEFT + 57) * mm,
                         (TOP - i) * mm,
                         "%s %s"
                         % (
@@ -428,7 +428,7 @@ class SimpleInvoice(BaseInvoice):
 
                 # Column 3: Price per unit (without VAT)
                 self.pdf.drawRightString(
-                    (LEFT + 72) * mm,
+                    (LEFT + 77) * mm,
                     (TOP - i) * mm,
                     currency(
                         item.price, self.invoice.currency, self.invoice.currency_locale
@@ -437,7 +437,7 @@ class SimpleInvoice(BaseInvoice):
 
                 # Column 4: Total price (without VAT)
                 self.pdf.drawRightString(
-                    (LEFT + 96) * mm,
+                    (LEFT + 99) * mm,
                     (TOP - i) * mm,
                     currency(
                         item.total, self.invoice.currency, self.invoice.currency_locale
@@ -447,22 +447,25 @@ class SimpleInvoice(BaseInvoice):
                 # Column 5: VAT percentage (show "neuvádzasa" for 0% tax)
                 if item.tax == 0:
                     # Center "neuvádzasa" in the column (use drawString for left-align positioning)
-                    self.pdf.drawString((LEFT + 102) * mm, (TOP - i) * mm, "neuvádza sa")
+                    self.pdf.drawString((LEFT + 108) * mm, (TOP - i) * mm, "neuvádza sa")
                 else:
                     self.pdf.drawRightString(
-                        (LEFT + 115) * mm, (TOP - i) * mm, "%.0f %%" % item.tax
+                        (LEFT + 120) * mm, (TOP - i) * mm, "%.0f %%" % item.tax
                     )
 
                 # Column 6: VAT amount
-                self.pdf.drawRightString(
-                    (LEFT + 140) * mm,
-                    (TOP - i) * mm,
-                    currency(
-                        item.count_tax(),
-                        self.invoice.currency,
-                        self.invoice.currency_locale,
-                    ),
-                )
+                if item.tax == 0 :
+                    self.pdf.drawString((LEFT + 132) * mm, (TOP - i) * mm, "neuvádza sa")
+                else:
+                    self.pdf.drawRightString(
+                        (LEFT + 144) * mm,
+                        (TOP - i) * mm,
+                        currency(
+                            item.count_tax(),
+                            self.invoice.currency,
+                            self.invoice.currency_locale,
+                        ),
+                    )
 
                 # Column 7: Total price with VAT
                 self.pdf.drawRightString(
@@ -478,7 +481,7 @@ class SimpleInvoice(BaseInvoice):
             else:
                 if float(int(item.count)) == item.count:
                     self.pdf.drawRightString(
-                        (LEFT + 118) * mm,
+                        (LEFT + 123) * mm,
                         (TOP - i) * mm,
                         "%s %s"
                         % (
@@ -488,7 +491,7 @@ class SimpleInvoice(BaseInvoice):
                     )
                 else:
                     self.pdf.drawRightString(
-                        (LEFT + 118) * mm,
+                        (LEFT + 123) * mm,
                         (TOP - i) * mm,
                         "%s %s"
                         % (
