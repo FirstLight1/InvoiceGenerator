@@ -574,17 +574,17 @@ class SimpleInvoice(BaseInvoice):
             total_vat = sum(item.count_tax() for item in self.invoice.items)
             total_with_vat = total_no_vat + total_vat
 
-            self.pdf.setFont("DejaVu-Bold", 11)
+            self.pdf.setFont("DejaVu-Bold", 9)
             self.pdf.drawString((LEFT + 1) * mm, (TOP - i - 7) * mm, "Celkom:")
             self.pdf.drawRightString(
-                (LEFT + 96) * mm,
+                (LEFT + 103) * mm,
                 (TOP - i - 7) * mm,
                 currency(
                     total_no_vat, self.invoice.currency, self.invoice.currency_locale
                 ),
             )
             self.pdf.drawRightString(
-                (LEFT + 140) * mm,
+                (LEFT + 146) * mm,
                 (TOP - i - 7) * mm,
                 currency(
                     total_vat, self.invoice.currency, self.invoice.currency_locale
