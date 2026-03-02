@@ -247,6 +247,8 @@ class Invoice(UnicodeProperty):
     currency_locale = "cs_CZ.UTF-8"
     #: currency identifier (e.g. "$" or "Kč")
     currency = u"Kč"
+    #: ISO 4217 currency code for QR payment (e.g. "EUR", "CZK"). Used in QR code generation.
+    currency_code = None
     #: note at the bottom of the invoice
     note = None
 
@@ -367,6 +369,8 @@ class QrCodeBuilder(object):
             'account': invoice.provider.bank_account_str(),
             'amount': invoice.use_tax and invoice.price_tax or invoice.price,
             'x_ss': invoice.specific_symbol,
+            'recipient_name': invoice.provider.summary,
+            'currency': invoice.currency_code,
         }
 
         if invoice.variable_symbol:
