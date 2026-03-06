@@ -168,3 +168,13 @@ msgstr "Datum vystavení"
 
 msgid "Document num.: %s"
 msgstr "Doklad č.: %s"
+
+#: pdf.py
+#, python-format
+msgid "Credit note num.: %s to invoice num.: %s"
+msgstr "Dobropis č.: %s k faktuře č.: %s"
+
+#: pdf.py
+#, python-format
+msgid "Credit note num.: %s"
+msgstr "Dobropis č.: %s"

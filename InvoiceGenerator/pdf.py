@@ -4,7 +4,7 @@ import locale
 import os
 import warnings
 
-from InvoiceGenerator.api import Invoice, QrCodeBuilder
+from InvoiceGenerator.api import Invoice, CreditNote, QrCodeBuilder
 from InvoiceGenerator.conf import FONT_BOLD_PATH, FONT_PATH
 from InvoiceGenerator.conf import LANGUAGE, get_gettext
 
@@ -22,7 +22,7 @@ from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus import Frame, KeepInFrame, Paragraph
 
 
-__all__ = ["SimpleInvoice", "ProformaInvoice", "CorrectingInvoice"]
+__all__ = ["SimpleInvoice", "ProformaInvoice", "CorrectingInvoice", "CreditNoteInvoice"]
 
 
 def get_lang():
@@ -787,3 +787,32 @@ class ProformaInvoice(SimpleInvoice):
         for item in items:
             self.pdf.drawString(item[0], top * mm, item[1])
             top += -5
+
+
+class CreditNoteInvoice(SimpleInvoice):
+    """
+    Generator of credit note (dobropis) PDF.
+
+    Looks the same as a SimpleInvoice but with a distinct title that
+    references the original invoice number. Supports QR codes.
+
+    :param invoice: the credit note
+    :type invoice: CreditNote
+    """
+
+    def _drawTitle(self):
+        # Up line
+        self.pdf.drawString(self.LEFT * mm, self.TOP * mm, self.invoice.title)
+        if self.invoice.original_number:
+            self.pdf.drawString(
+                (self.LEFT + 90) * mm,
+                self.TOP * mm,
+                _("Credit note num.: %s to invoice num.: %s")
+                % (self.invoice.number, self.invoice.original_number),
+            )
+        else:
+            self.pdf.drawString(
+                (self.LEFT + 90) * mm,
+                self.TOP * mm,
+                _("Credit note num.: %s") % self.invoice.number,
+            )

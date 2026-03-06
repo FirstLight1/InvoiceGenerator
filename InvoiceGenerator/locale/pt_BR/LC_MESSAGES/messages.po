@@ -168,3 +168,13 @@ msgstr "Data de exposição"
 
 msgid "Document num.: %s"
 msgstr "Documento num.: %s"
+
+#: pdf.py
+#, python-format
+msgid "Credit note num.: %s to invoice num.: %s"
+msgstr "Nota de crédito num.: %s para fatura num.: %s"
+
+#: pdf.py
+#, python-format
+msgid "Credit note num.: %s"
+msgstr "Nota de crédito num.: %s"

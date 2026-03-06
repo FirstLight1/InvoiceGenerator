@@ -8,7 +8,7 @@ from InvoiceGenerator.conf import _
 
 import qrcode
 
-__all__ = ['Address', 'Client', 'Provider', 'Creator', 'Item', 'Invoice']
+__all__ = ['Address', 'Client', 'Provider', 'Creator', 'Item', 'Invoice', 'CreditNote']
 
 
 class UnicodeProperty(object):
@@ -251,6 +251,10 @@ class Invoice(UnicodeProperty):
     currency_code = None
     #: note at the bottom of the invoice
     note = None
+    #: custom payment amount for QR code (overrides calculated total if set)
+    qr_payment_amount = None
+    #: custom due date for QR code (overrides invoice.payback if set)
+    qr_due_date = None
 
     use_tax = False
 
@@ -352,6 +356,44 @@ class Correction(Invoice):
         super(Correction, self).__init__(client, provider, creator)
 
 
+class CreditNote(Invoice):
+    """
+    Credit note (dobropis) — an invoice with all values negated.
+
+    Used when an order is returned. Accepts the same parameters as a normal
+    Invoice. Item prices are automatically negated when added so that all
+    totals come out negative.
+
+    :param client: client of the credit note
+    :type client: Client
+    :param provider: provider of the credit note
+    :type provider: Provider
+    :param creator: creator of the credit note
+    :type creator: Creator
+    """
+    #: number of the original invoice this credit note refers to
+    original_number = None
+
+    _attrs = ('number', 'original_number', 'title', 'variable_symbol',
+              'specific_symbol', 'paytype', 'date', 'payback', 'taxable_date')
+
+    def __init__(self, client, provider, creator):
+        super(CreditNote, self).__init__(client, provider, creator)
+
+    def add_item(self, item):
+        """
+        Add item to the credit note. The item price is automatically negated
+        so that the credit note totals are negative.
+
+        :param item: the new item
+        :type item: Item class
+        """
+        assert isinstance(item, Item)
+        # Negate the price so totals come out negative
+        item.price = -abs(item.price)
+        self._items.append(item)
+
+
 class QrCodeBuilder(object):
 
     def __init__(self, invoice):
@@ -365,9 +407,15 @@ class QrCodeBuilder(object):
     def _fill(self, invoice):
         from qrplatba import QRPlatbaGenerator
 
+        # Use custom QR payment amount if set, otherwise calculate from items
+        if invoice.qr_payment_amount is not None:
+            amount = Decimal(invoice.qr_payment_amount)
+        else:
+            amount = invoice.use_tax and invoice.price_tax or invoice.price
+
         qr_kwargs = {
             'account': invoice.provider.bank_account_str(),
-            'amount': invoice.use_tax and invoice.price_tax or invoice.price,
+            'amount': amount,
             'x_ss': invoice.specific_symbol,
             'recipient_name': invoice.provider.summary,
             'currency': invoice.currency_code,
@@ -376,8 +424,10 @@ class QrCodeBuilder(object):
         if invoice.variable_symbol:
             qr_kwargs['x_vs'] = invoice.variable_symbol
 
+        # Use custom QR due date if set, otherwise fall back to invoice.payback
+        qr_due = invoice.qr_due_date if invoice.qr_due_date is not None else invoice.payback
         try:
-            qr_kwargs['due_date'] = invoice.payback.strftime("%Y%m%d")
+            qr_kwargs['due_date'] = qr_due.strftime("%Y%m%d")
         except AttributeError:
             pass
 

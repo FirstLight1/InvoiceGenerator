@@ -10,4 +10,5 @@ dist/
 .venv/
 venv/
 *.pdf
-
+test_*
+nul
