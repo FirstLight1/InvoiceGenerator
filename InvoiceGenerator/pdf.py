@@ -175,21 +175,20 @@ class SimpleInvoice(BaseInvoice):
         pdf.setTitle(self.invoice.title)
         pdf.setAuthor(self.invoice.creator.name)
 
-    def _drawTitle(self):
-        # Up line
-        self.pdf.drawString(self.LEFT * mm, self.TOP * mm, self.invoice.title)
+    def _numberLabelText(self):
+        if self.invoice.number_label:
+            return "%s: %s" % (self.invoice.number_label, self.invoice.number)
         if not self.invoice.use_tax:
-            self.pdf.drawString(
-                (self.LEFT + 90) * mm,
-                self.TOP * mm,
-                _("Invoice num.: %s") % self.invoice.number,
-            )
-        else:
-            self.pdf.drawString(
-                (self.LEFT + 90) * mm,
-                self.TOP * mm,
-                _("Taxable invoice num.: %s") % self.invoice.number,
-            )
+            return _("Invoice num.: %s") % self.invoice.number
+        return _("Taxable invoice num.: %s") % self.invoice.number
+
+    def _drawTitle(self):
+        # Up line: right-side document number label only.
+        self.pdf.drawString(
+            (self.LEFT + 90) * mm,
+            self.TOP * mm,
+            self._numberLabelText(),
+        )
 
     def _drawMain(self):
         # Borders
@@ -735,12 +734,15 @@ class CorrectingInvoice(SimpleInvoice):
         self.pdf.save()
 
     def _drawTitle(self):
-        # Up line
-        self.pdf.drawString(self.LEFT * mm, self.TOP * mm, self.invoice.title)
+        # Up line: right-side document number label only.
+        if self.invoice.number_label:
+            label = "%s: %s" % (self.invoice.number_label, self.invoice.number)
+        else:
+            label = _("Correcting document: %s") % self.invoice.number
         self.pdf.drawString(
             (self.LEFT + 90) * mm,
             self.TOP * mm,
-            _("Correcting document: %s") % self.invoice.number,
+            label,
         )
 
     def drawCorretion(self, TOP, LEFT):
@@ -762,12 +764,15 @@ class ProformaInvoice(SimpleInvoice):
         return
 
     def _drawTitle(self):
-        # Up line
-        self.pdf.drawString(self.LEFT * mm, self.TOP * mm, self.invoice.title)
+        # Up line: right-side document number label only.
+        if self.invoice.number_label:
+            label = "%s: %s" % (self.invoice.number_label, self.invoice.number)
+        else:
+            label = _("Document num.: %s") % self.invoice.number
         self.pdf.drawString(
             (self.LEFT + 90) * mm,
             self.TOP * mm,
-            _("Document num.: %s") % self.invoice.number,
+            label,
         )
 
     def _drawDates(self, TOP, LEFT):

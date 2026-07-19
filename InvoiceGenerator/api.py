@@ -225,6 +225,10 @@ class Invoice(UnicodeProperty):
     """
     #: title on the invoice
     title = ""
+    #: optional label used in the top-right header before the document number.
+    #: when set (e.g. "Dobropis č."), it overrides the hardcoded "Invoice num." /
+    #: "Taxable invoice num." / "Correcting document" labels.
+    number_label = None
     #: variable symbol associated with the payment
     variable_symbol = None
     #: specific_symbol
